@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <h1>WhatsApp Integration</h1>
+    <form id="messageForm">
+      <label for="userMessage">Your Message:</label>
+      <input type="text" id="userMessage" name="userMessage" />
+      <button type="button" onclick="sendMessage()">Send via WhatsApp</button>
+    </form>
+
+    <a
+      href="whatsapp://send?phone=7517516048&text=Hello, I have a question about your services."
+      class="whatsapp-button"
+      >Contact Admin</a
+    ><br />
+    <a
+      href="whatsapp://send?text=Hello, this message is for the group!"
+      class="whatsapp-button"
+      >Send to Group</a
+    ><br />
+    <a
+      href="whatsapp://send?text=Hello, this is a test message!"
+      class="whatsapp-button"
+      >Send Predefined Message</a
+    ><br />
+    <a
+      href="whatsapp://send?text=Check out this link: https://example.com"
+      class="whatsapp-button"
+      >Share Link</a
+    ><br />
+    <a href="whatsapp://" class="whatsapp-button">Open WhatsApp</a>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

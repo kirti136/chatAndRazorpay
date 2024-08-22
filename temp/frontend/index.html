@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  </head>
+  <body>
+    <button id="pay-button">Pay Now</button>
+  </body>
+  <script>
+    const baseURL = "http://localhost:3000";
+
+    const orderData = {
+      amount: 100, // paisa
+      currency: "INR",
+      receipt: "receipt#1",
+      notes: {},
+    };
+
+    fetch(`${baseURL}/createOrder`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(orderData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data",data);
+        payment(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    function payment(data) {
+      let x = 100;
+      console.log(x, "price");
+      const options = {
+        key: "rzp_test_CZ8SWrwK1laHAx",
+        amount: x * 100,
+        currency: "INR",
+        name: "Test Razorpay",
+        order_id: data.id, // Use the order id from the response
+        handler: function (response) {
+          console.log(response);
+          alert("This step of Payment Succeeded");
+          window.location.href = "./success.html";
+        },
+        prefill: {
+          contact: "8669664848",
+          name: "Kirti Bhosale",
+          email: "bhosalekirti2002@gmail.com",
+        },
+        theme: {
+          // color: "#2300a3",
+          color: "#d64444",
+        },
+      };
+
+      var razorpayObject = new Razorpay(options);
+      console.log(razorpayObject);
+
+      razorpayObject.on("payment.failed", function (response) {
+        console.log(response);
+        alert("This step of Payment Failed");
+      });
+
+      document.getElementById("pay-button").onclick = function (e) {
+        e.preventDefault();
+        razorpayObject.open();
+      };
+    }
+  </script>
+</html>
